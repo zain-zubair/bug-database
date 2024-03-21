@@ -1,88 +1,56 @@
-"use client";
-
 import Link from "next/link";
-import { db } from "@/lib/db";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 export default function Home() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const router = useRouter();
-
-  const handleSignIn = async (e) => {
-    e.preventDefault();
-    const { error } = await db.auth.signInWithPassword({
-      email: `${username}@email.com`,
-      password: password,
-    });
-
-    if (!error) {
-      router.push("/report");
-    } else {
-      alert(
-        "There was an error logging in. Please recheck your username and password and try again."
-      );
-    }
-  };
+  const sections = [
+    {
+      href: "/report",
+      title: "Bug Report",
+      desc: "Report bugs and view updates.",
+    },
+    {
+      href: "/login",
+      title: "Login",
+      desc: "Login to report bugs in the database and view updates.",
+    },
+    {
+      href: "/sign-up",
+      title: "Register",
+      desc: "Register with your company given employee ID, email, and username",
+    },
+  ];
 
   return (
-    <main className="px-20">
-      <section className="text-black font-mono">
-        <form className="flex flex-col gap-2">
-          <div>
-            <label htmlFor="username">Username:</label>
-            <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-              className="px-1 border border-black rounded"
-            />
-          </div>
-          <div className="text-black">
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="px-1 border border-black rounded"
-            />
-          </div>
-
-          <div>
-            <button
-              type="submit"
-              onClick={handleSignIn}
-              className="ml-20 mb-10 border border-black rounded bg-gray-300 px-3 py-1"
+    <main className="flex min-h-screen flex-col items-center justify-between px-6 py-10">
+      <div className="mb-32 grid text-center md:max-w-5xl md:w-full md:mb-0 md:grid-cols-3 md:text-left">
+        {sections.map((section, index) => (
+          <Link
+            key={index}
+            href={section.href}
+            className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-red-700 hover:bg-red-700/20"
+          >
+            <h2
+              className={`mb-3 text-2xl group-hover:text-red-700 font-semibold`}
             >
-              Login
-            </button>
-          </div>
-        </form>
+              {section.title}
+              <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+                -&gt;
+              </span>
+            </h2>
+            <p className={`max-w-[30ch] text-sm opacity-50`}>{section.desc}</p>
+          </Link>
+        ))}
+      </div>
 
-        <div className="flex flex-row gap-20 text-sm">
-          <div className="flex flex-col">
-            <Link href="#" className="text-gray-500">
-              *Forgot Password
-            </Link>
-
-            <Link href="#" className="text-gray-500">
-              *Forgot Username
-            </Link>
-          </div>
-
-          <div>
-            <Link href="/sign-up" className="flex flex-col">
-              <span className="underline">New User?</span>
-              <span className="italic">* Sign up now!</span>
-            </Link>
-          </div>
-        </div>
-      </section>
+      <footer className="absolute bottom-0 py-3 text-center font-mono text-xs">
+        <Link
+          href="https://github.com/zain-zubair/computerorg"
+          rel="noopener noreferrer"
+          target="_blank"
+          className="hover:text-red-700 duration-300 transition-colors"
+        >
+          Bug Database designed & developed by TMU students
+        </Link>
+      </footer>
     </main>
   );
 }
