@@ -43,7 +43,7 @@ export default function Home() {
 
       <footer className="absolute bottom-0 py-3 text-center font-mono text-xs">
         <Link
-          href="https://github.com/zain-zubair/computerorg"
+          href="https://github.com/zain-zubair/bug-database"
           rel="noopener noreferrer"
           target="_blank"
           className="hover:text-red-700 duration-300 transition-colors"
