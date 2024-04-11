@@ -1,14 +1,16 @@
 "use client"; 
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect , } from 'react';
 import { db } from "@/lib/db";
+import Link from "next/link";
 
 const EditBugReport = () => {
   const [reportNumber, setReportNumber] = useState('');
   const [bugType, setBugType] = useState('');
   const [summary, setSummary] = useState('');
   const [existingReport, setExistingReport] = useState(null);
-
+  const [enabled, setEnable] = useState(true); 
+  
   useEffect(() => {
     // This effect runs whenever existingReport changes
     if (existingReport === null) {
@@ -36,9 +38,12 @@ const EditBugReport = () => {
         setExistingReport(data);
         setBugType(data.bugType);
         setSummary(data.summary);
+        setEnable(false)
+
       } else {
         setExistingReport(null); // Setting existingReport to null when report is not found
         console.log("Report not found.");
+        setEnable(true)
       }
     } catch (error) {
       console.error('Error fetching report:', error.message);
@@ -65,6 +70,8 @@ const EditBugReport = () => {
       console.error('Error updating report:', error.message);
     }
   };
+
+
 
   return (
     <div className="container mx-auto p-4 flex justify-center items-center h-screen">
@@ -104,9 +111,26 @@ const EditBugReport = () => {
             </div>
           )}
           
-          <button type="submit" className="ml-20 mb-10 border border-black rounded bg-gray-300 px-3 py-1">
+          {/* 
+          Update report button:
+            Disabled until a valid report number is entered 
+            Alerts the user that the update has been successfull.  
+          */}
+          
+          <button disabled={enabled} onClick={() => alert('Update Sucessful')} type="submit" className="mr-4 border border-black rounded bg-gray-300 px-4 py-2">
             Update Report
           </button>
+
+          <Link href="/" >
+            
+            <button
+              className="border border-black rounded bg-gray-300 px-4 py-2"
+            
+              
+            >
+              Cancel
+            </button>
+            </Link>
         </form>
       </div>
     </div>
