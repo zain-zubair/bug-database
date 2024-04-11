@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from "next/navigation";
 import { db } from "@/lib/db";
+import Link from "next/link";
 
 const BugReportEditor = () => {
   const [reportNumber, setReportNumber] = useState('');
@@ -81,11 +82,22 @@ const BugReportEditor = () => {
               Save
             </button>
             <button
-              className="border border-black rounded bg-gray-300 px-4 py-2"
+              className="mr-4 border border-black rounded bg-gray-300 px-4 py-2"
               onClick={handleEdit}
             >
               Edit
             </button>
+            
+            <Link href="/" >
+            
+            <button
+              className="border border-black rounded bg-gray-300 px-4 py-2"
+            
+              
+            >
+              Cancel 
+            </button>
+            </Link>
           </div>
           {formError && <p className="error">{formError}</p>}
         </form>
