@@ -28,7 +28,9 @@ export default function SignUpPage() {
   const handleSignUp = async (e) => {
     e.preventDefault();
 
-    if (!validIDs.includes(id)) {
+    console.log(validIDs, id);
+
+    if (!validIDs.includes(parseInt(id))) {
       alert("Invalid employee ID.");
       return;
     }

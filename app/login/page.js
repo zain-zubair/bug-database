@@ -46,6 +46,19 @@ export default function Home() {
     }
   };
 
+  const handlePasswordReset = async () => {
+    const {
+      data: { user },
+    } = await db.auth.getUser();
+    const { error } = await db.auth.resetPasswordForEmail(user.email);
+
+    if (error === null) {
+      alert("An email has been sent to reset your password.");
+    } else {
+      alert("Too many requests. Please try again later.");
+    }
+  };
+
   return (
     <main className="px-20">
       <section className="text-black font-mono flex justify-center items-center gap-10 flex-col">
@@ -97,13 +110,9 @@ export default function Home() {
 
         <div className="flex flex-row gap-20 text-sm">
           <div className="flex flex-col">
-            <Link href="#" className="text-gray-500">
+            <button className="text-gray-500" onClick={handlePasswordReset}>
               *Forgot Password
-            </Link>
-
-            <Link href="#" className="text-gray-500">
-              *Forgot Username
-            </Link>
+            </button>
           </div>
 
           <Link href="/sign-up" className="flex flex-col">
