@@ -1,3 +1,4 @@
+import BugGraph from "@/components/BugGraph";
 import Link from "next/link";
 
 export default function Home() {
@@ -21,7 +22,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between px-6 py-10">
-      <div className="mb-32 grid text-center md:max-w-5xl md:w-full md:mb-0 md:grid-cols-3 md:text-left">
+      <div className="grid text-center md:max-w-5xl md:w-full md:mb-0 md:grid-cols-3 md:text-left">
         {sections.map((section, index) => (
           <Link
             key={index}
@@ -41,16 +42,9 @@ export default function Home() {
         ))}
       </div>
 
-      <footer className="absolute bottom-0 py-3 text-center font-mono text-xs">
-        <Link
-          href="https://github.com/zain-zubair/bug-database"
-          rel="noopener noreferrer"
-          target="_blank"
-          className="hover:text-red-700 duration-300 transition-colors"
-        >
-          Bug Database designed & developed by TMU students
-        </Link>
-      </footer>
+      <div className="absolute bottom-10">
+        <BugGraph />
+      </div>
     </main>
   );
 }
